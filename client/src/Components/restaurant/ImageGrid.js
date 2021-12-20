@@ -10,40 +10,40 @@ const ImageGrid = (props) => {
                         className="w-full h-full object-cover rounded-lg"
                     />
                 </div>
-                <div className="hidden w-full h-80 md:flex gap-1">
-                    <div className="w-7/12 h-full overflow-hidden">
+                <div className="hidden w-full h-96 md:flex gap-1">
+                    <div className="w-full h-full overflow-hidden">
                         <img src={props.images[0]}
                             alt="restaurant image"
                             className="w-full h-full object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                         />  
                     </div>
-                    <div className="w-1/6 h-full flex flex-col gap-1 overflow-hidden">
+                    <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                         <div className="overflow-hidden">
                             <img src={props.images[1]}
                                 alt="restaurant image"
-                                className="w-full h-40 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
+                                className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />  
                         </div>
                         <div className="overflow-hidden">
                             <img src={props.images[2]}
                                 alt="restaurant image"
-                                className="w-full h-40 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
+                                className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />
                         </div>  
                     </div>
-                    <div className="w-1/6 h-full flex flex-col gap-1 overflow-hidden">
-                        <div className="overflow-hidden w-full h-40 relative">
+                    <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
+                        <div className="overflow-hidden w-full h-full relative">
                             <img src={props.images[3]}
                                 alt="restaurant image"
-                                className="w-full h-full object-cover rounded-lg transform transition duration-700 hover:scale-110 "
+                                className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />  
                             <div className="absolute inset-0 bg-opacity-40 bg-black w-full h-full rounded-lg"/>
                             <h4 className="absolute inset-y-1/2 text-white z-20 w-full h-full text-center font-semibold">View Gallery</h4>
                         </div>
-                        <div className="overflow-hidden w-full h-40 relative">
+                        <div className="overflow-hidden w-full h-full relative">
                             <img src={props.images[4]}
                                 alt="restaurant image"
-                                className="w-full h-full object-cover rounded-lg transform transition duration-700 hover:scale-110 "
+                                className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />  
                             <div className="absolute inset-0 bg-opacity-90 bg-gray-400 w-full h-full rounded-lg"/>
                             <div className="absolute inset-y-1/3 text-white z-20 w-full h-full text-center font-semibold flex flex-col items-center">
