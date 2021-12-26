@@ -69,7 +69,7 @@ const Overview = (props) => {
                         </Link>
                     </div>
                     <div className='flex flex-wrap gap-3 my-4'>
-                        <MenuCollection menuTitle="Menu" pages="3" image="https://b.zmtcdn.com/data/menus/449/19874449/cfbf761119cfb294de95d9827797c823.jpg" />
+                        <MenuCollection menuTitle="Menu" pages="3" image={["https://b.zmtcdn.com/data/menus/449/19874449/cfbf761119cfb294de95d9827797c823.jpg","https://b.zmtcdn.com/data/menus/283/19403283/27dab47a6b84f86951f8e8d54b5e507a.jpg"]} />
                     </div>
                     <h4 className="text-lg font-medium my-2">Cuisine</h4>
                     <div className='flex flex-wrap gap-2'>
