@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { IoMdArrowDropright } from "react-icons/io"
 import Slider from 'react-slick'
 import ReactStars from "react-rating-stars-component";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
 
@@ -12,6 +11,7 @@ import MenuCollection from '../../Components/restaurant/MenuCollection'
 import MenuSimilarRestauranrCard from '../../Components/restaurant/MenuSimilarRestauranrCard'
 import { PrevArrow, NextArrow } from '../../Components/Delivery/CarousalArrow'
 import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
+import Mapview from '../../Components/restaurant/Mapview';
 
 const Overview = (props) => {
     const { id } = useParams();
@@ -25,7 +25,33 @@ const Overview = (props) => {
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
-    };
+        responsive: [
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            }
+        ]
+    }
 
     const ratingChanged = (newRating) => {
         console.log(newRating);
@@ -34,7 +60,7 @@ const Overview = (props) => {
     return (
         <>
             <div className="flex flex-col md:flex-row relative">
-                <div className="w-8/12 bg-white">
+                <div className="w-full md:w-8/12 mx-8 bg-white">
                     <h2 className="font-semibold text-lg md:text-xl my-4">About this place</h2>
                     <div className='flex justify-between items-center'>
                         <h4 className="text-lg font-medium">Menu</h4>
@@ -78,7 +104,9 @@ const Overview = (props) => {
                             size={24}
                             activeColor="#ffd700"
                         />
-
+                    </div>
+                    <div className='my-4 w-full md:hidden flex flex-col gap-4'>
+                        <Mapview title="La Milano Pizzeria" phno="+911382883399" mapLocation={[23.04587545329744, 72.6326403583422]} address="A 30 & 31, Shaktidhara Colony, Shashtri Road, Opposite Arvind Estate, Bapunagar, Ahmedabad" />
                     </div>
                     <div className='my-4 flex flex-col gap-4'>
                         <ReviewCard />
@@ -88,27 +116,8 @@ const Overview = (props) => {
                     </div>
 
                 </div>
-                <aside style={{ height: "fit-content" }} className="hidden md:block md:w-4/12 sticky top-2 bg-white p-3 rounded-xl shadow-md">
-                    <div>
-                        <h4 className="text-xl font-medium my-2">Call</h4>
-                        <h5 className='text-zomato-400 fonr-medium'>+917700050050</h5>
-                    </div>
-                    <div>
-                        <h4 className="text-xl font-medium my-2">Direction</h4>
-                        <div className='w-full h-48'>
-                        <MapContainer center={[23.04587545329744, 72.6326403583422]} zoom={13} scrollWheelZoom={false}>
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                            <Marker position={[23.04587545329744, 72.6326403583422]}>
-                                <Popup>
-                                    A pretty CSS3 popup. <br /> Easily customizable.
-                                </Popup>
-                            </Marker>
-                        </MapContainer>
-                        </div>
-                    </div>
+                <aside style={{ height: "fit-content" }} className="hidden md:flex md:w-4/12 sticky top-2 bg-white p-3 rounded-xl shadow-md flex flex-col gap-4">
+                    <Mapview title="La Milano Pizzeria" phno="+911382883399" mapLocation={[23.04587545329744, 72.6326403583422]} address="A 30 & 31, Shaktidhara Colony, Shashtri Road, Opposite Arvind Estate, Bapunagar, Ahmedabad" />
                 </aside>
             </div>
         </>

@@ -22,6 +22,8 @@ import Image from "./API/Image";
 import Order from "./API/Orders";
 import Review from "./API/reviews";
 import User from "./API/User";
+import MailService from "./API/Mail"
+
 
 
 
@@ -54,6 +56,7 @@ zomato.use("/image",Image);
 zomato.use("/order",Order);
 zomato.use("/reviews",Review);
 zomato.use("/user",User);
+zomato.use("/mail",MailService);
 
 
 zomato.get("/",(req,res)=>res.json({message:"SetUp Success Yay!!!!!!"}));
