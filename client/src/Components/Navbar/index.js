@@ -7,8 +7,6 @@ import { RiSearch2Line } from "react-icons/ri";
 //components
 import SignIn from "../Auth/SignIn";
 import SignUp from "../Auth/SignUp";
-import UserDropdown from "./UserDropdown";
-
 const MobileNav = ({ SignIn,SignUp }) => {
     const [isDropDownOpen,setIsDropDownOpen]=useState(false)
     return (
