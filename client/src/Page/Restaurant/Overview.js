@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { IoMdArrowDropright } from "react-icons/io"
 import Slider from 'react-slick'
+import { useSelector, useDispatch } from "react-redux"
 import ReactStars from "react-rating-stars-component";
 
 
@@ -13,8 +14,28 @@ import { PrevArrow, NextArrow } from '../../Components/Delivery/CarousalArrow'
 import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
-const Overview = (props) => {
+import { getImage } from '../../Redux/Reducer/Image/Image.action'
+
+
+
+const Overview = () => {
     const { id } = useParams();
+
+    const reduxState = useSelector((globalStore) => globalStore.restaurant.selectedRestaurant.restaurant);
+
+    const [menuImages, setMenuImages] = useState({ images: [] })
+
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (reduxState) {
+            dispatch(getImage(reduxState?.menuImages)).then((data) => {
+                const images = [];
+                data.payload.image.images.map(({ location }) => images.push(location));
+                setMenuImages(images);
+            });
+        }
+    },[])
 
 
     const settings = {
@@ -69,7 +90,7 @@ const Overview = (props) => {
                         </Link>
                     </div>
                     <div className='flex flex-wrap gap-3 my-4'>
-                        <MenuCollection menuTitle="Menu" pages="3" image={["https://b.zmtcdn.com/data/menus/449/19874449/cfbf761119cfb294de95d9827797c823.jpg","https://b.zmtcdn.com/data/menus/283/19403283/27dab47a6b84f86951f8e8d54b5e507a.jpg"]} />
+                        <MenuCollection menuTitle="Menu" pages="3" image={menuImages} />
                     </div>
                     <h4 className="text-lg font-medium my-2">Cuisine</h4>
                     <div className='flex flex-wrap gap-2'>

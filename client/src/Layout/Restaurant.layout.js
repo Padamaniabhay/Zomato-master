@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { TiStarOutline } from "react-icons/ti"
 import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri"
 import { BiBookmarkPlus } from "react-icons/bi"
+
 
 //components
 import RestaurantNavbar from "../Components/Navbar/restaurantNavbar"
@@ -11,25 +14,43 @@ import RestaurantInfo from '../Components/restaurant/RestaurantInfo';
 import TabContainer from '../Components/restaurant/Tabs';
 import CartContainer from '../Components/Cart/CartContainer';
 
+//Redux actions
+import { getSpecificRestaurant } from '../Redux/Reducer/Restaurant/Restaurant.action';
+import { getImage } from '../Redux/Reducer/Image/Image.action';
+
 
 const RestaurantLayout = (props) => {
+    const [restaurant, setRestaurant] = useState({ images: [], name: "", cuisine: "", address: "" });
+
+
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getSpecificRestaurant(id)).then((data) => {
+            setRestaurant((prev) => ({ ...prev, ...data.payload.restaurant }))
+
+            dispatch(getImage(data.payload.restaurant.photos)).then((data) => setRestaurant((prev) => {
+                return ({ ...prev, ...data.payload.images });
+            }));
+
+            dispatch(getImage(data.payload.restaurant.photos)).then(data=>setRestaurant(prev=>({...prev,...data.payload.image})))
+
+        });
+    }, [])
     return (
         <>
             <RestaurantNavbar />
             <div className="container mx-auto px-4 lg:px-32 ">
-                <ImageGrid images={["https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg",
-                    "https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg",
-                    "https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg",
-                    "https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg",
-                    "https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg",
-                    "https://b.zmtcdn.com/data/pictures/chains/1/19708611/364c47169e854c8b24f2e4d3784f4384.jpg"]}
+                <ImageGrid images={restaurant.images}
                 />
-                <RestaurantInfo
-                    name="La Milano Pizzeria"
-                    restaurantrating="3.5"
-                    deliveryrating="3.2"
-                    cuisine="Pizza, Fast Food"
-                    address="Bapunagar, Ahmedabad" />
+                <RestaurantInfo                                         //here ? mark means if restaurant is available then go for name,rating....
+                    name={restaurant?.name}                                 //same as restaurant && restaursnt.name
+                    restaurantrating={restaurant?.rating || 0}
+                    deliveryrating={restaurant?.rating || 0}
+                    cuisine={restaurant?.cuisine}
+                    address={restaurant?.address} />
                 <div className="my-4 flex flex-wrap gap-3">
                     <InfoButtons isActive>
                         <TiStarOutline /> Add Reviews
