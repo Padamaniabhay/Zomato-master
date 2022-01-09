@@ -15,7 +15,7 @@ import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
 import { getImage } from '../../Redux/Reducer/Image/Image.action'
-
+import { getReviews } from '../../Redux/Reducer/Reviews/Review.action'
 
 
 const Overview = () => {
@@ -24,6 +24,7 @@ const Overview = () => {
     const reduxState = useSelector((globalStore) => globalStore.restaurant.selectedRestaurant.restaurant);
 
     const [menuImages, setMenuImages] = useState({ images: [] })
+    const [Reviews, setReviews] = useState([])
 
 
     const dispatch = useDispatch();
@@ -34,8 +35,11 @@ const Overview = () => {
                 data.payload.image.images.map(({ location }) => images.push(location));
                 setMenuImages(images);
             });
+
+            dispatch(getReviews(reduxState?._id)).then(data=>setReviews(data.payload.reviews))
+
         }
-    },[])
+    }, [])
 
 
     const settings = {
@@ -78,6 +82,10 @@ const Overview = () => {
         console.log(newRating);
     };
 
+    const getLatLong = (mapAddress) => {
+        return (mapAddress?.split(",").map((item) => (parseFloat(item))));
+    };
+
     return (
         <>
             <div className="flex flex-col md:flex-row relative">
@@ -94,13 +102,16 @@ const Overview = () => {
                     </div>
                     <h4 className="text-lg font-medium my-2">Cuisine</h4>
                     <div className='flex flex-wrap gap-2'>
-                        <span className='border border-gray-600 text-blue-600 px-2 py-1 rounded-full'>Fast Food</span>
-                        <span className='border border-gray-600 text-blue-600 px-2 py-1 rounded-full'>Fast Food</span>
-                        <span className='border border-gray-600 text-blue-600 px-2 py-1 rounded-full'>Fast Food</span>
+                        {
+                            reduxState?.cuisine.map((data) => (
+                                <span className='border border-gray-600 text-blue-600 px-2 py-1 rounded-full'>{data}</span>
+
+                            ))
+                        }
                     </div>
                     <div className='my-4'>
                         <h4 className="text-lg font-medium ">Average Cost</h4>
-                        <h6>₹700 for two people (approx.)</h6>
+                        <h6>₹{reduxState?.averageCost} for two people (approx.)</h6>
                         <small className='text-gray-500'>Exclusive of applicable taxes and charges, if any</small>
                     </div>
 
@@ -125,9 +136,15 @@ const Overview = () => {
                             size={24}
                             activeColor="#ffd700"
                         />
+                        {Reviews.map((reviewData)=><ReviewCard  {...reviewData}/>)}
                     </div>
-                    <div className='my-4 w-full md:hidden flex flex-col gap-4'>
-                        <Mapview title="La Milano Pizzeria" phno="+911382883399" mapLocation={[23.04587545329744, 72.6326403583422]} address="A 30 & 31, Shaktidhara Colony, Shashtri Road, Opposite Arvind Estate, Bapunagar, Ahmedabad" />
+                    <div className="my-4 w-full  md:hidden flex flex-col gap-4">
+                        <Mapview
+                            title={reduxState?.name}
+                            phno={`+91${reduxState?.contactNumber}`}
+                            mapLocation={getLatLong(reduxState?.mapLocation)}
+                            address={reduxState?.address}
+                        />
                     </div>
                     <div className='my-4 flex flex-col gap-4'>
                         <ReviewCard />
@@ -138,7 +155,13 @@ const Overview = () => {
 
                 </div>
                 <aside style={{ height: "fit-content" }} className="hidden md:flex md:w-4/12 sticky top-2 bg-white p-3 rounded-xl shadow-md flex flex-col gap-4">
-                    <Mapview title="La Milano Pizzeria" phno="+911382883399" mapLocation={[23.04587545329744, 72.6326403583422]} address="A 30 & 31, Shaktidhara Colony, Shashtri Road, Opposite Arvind Estate, Bapunagar, Ahmedabad" />
+
+                    <Mapview
+                        title={reduxState?.name}
+                        phno={`+91${reduxState?.contactNumber}`}
+                        mapLocation={getLatLong(reduxState?.mapLocation)}
+                        address={reduxState?.address}
+                    />
                 </aside>
             </div>
         </>
