@@ -14,7 +14,7 @@ const ReviewCard = (props) => {
         dispatch(getUser(props.user)).then(data =>
             setUser(data.payload.user.fullname)
         )
-    }, [])
+    },[])
 
     return (
         <>

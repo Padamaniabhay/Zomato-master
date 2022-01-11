@@ -10,8 +10,8 @@ const Router = express.Router();
 import { UserModel } from "../../database/user";
 
 //validation
-import {ValidationSignup,ValidationSignin} from "../../validation/auth";
- 
+import { ValidationSignup, ValidationSignin } from "../../validation/auth";
+
 /*
 Route           /signup
 decrip          signup with email and password
@@ -20,17 +20,17 @@ access          public
 method          POST
 */
 
-Router.post("/signup",async(req,res)=>{
-    try{
+Router.post("/signup", async (req, res) => {
+    try {
 
         await ValidationSignup(req.body.credentials);
 
-            await UserModel.findEmailAndPhone(req.body.credentials);
-        
+        await UserModel.findEmailAndPhone(req.body.credentials);
+
         //hashing and salting
         //hashing is convert password in encrypted password at 1st time
-                    //in hashing you can encrypt but not decrypt -->one way only
-                    //every time you get same encrypted result. so, you can compair both encrypted result        
+        //in hashing you can encrypt but not decrypt -->one way only
+        //every time you get same encrypted result. so, you can compair both encrypted result        
         //salting is again convert 7 or 8 or ..... times
 
 
@@ -38,12 +38,12 @@ Router.post("/signup",async(req,res)=>{
         const newUser = await UserModel.create(req.body.credentials);
 
         //JWT Auth Token
-        const token = newUser.generateJwtToken(); 
+        const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token});
+        return res.status(200).json({ token });
 
-    }catch(error){
-        return res.status(500).json({error:error.message});
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
 });
 
@@ -53,7 +53,7 @@ Router.post("/signup",async(req,res)=>{
 
 
 
- 
+
 /*
 Route           /signin
 decrip          signin with email and password
@@ -62,8 +62,8 @@ access          public
 method          POST
 */
 
-Router.post("/signin",async(req,res)=>{
-    try{
+Router.post("/signin", async (req, res) => {
+    try {
 
         await ValidationSignin(req.body.credentials);
 
@@ -72,10 +72,10 @@ Router.post("/signin",async(req,res)=>{
         //JWT Auth Token
         const token = user.generateJwtToken();
 
-        return res.status(200).json({token,status:"Success"});
+        return res.status(200).json({ token, status: "Success" });
 
-    }catch(error){
-        return res.status(500).json({error:error.message});
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
 });
 
@@ -92,11 +92,11 @@ method          GET
 */
 
 
-Router.get("/google",passport.authenticate("google",{
-scope:[
-    "https://www.googleapis.com/auth/userinfo.profile",     //permission perpose
-    "https://www.googleapis.com/auth/userinfo.email"
-]
+Router.get("/google", passport.authenticate("google", {
+    scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",     //permission perpose
+        "https://www.googleapis.com/auth/userinfo.email"
+    ]
 })
 );
 
@@ -117,12 +117,12 @@ method          GET
 
 
 
-Router.get("/google/callback",passport.authenticate("google",{failureRedirect:"/"}),(req,res)=>{
-    return res.json({token:req.session.passport.user.token});
+Router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
+    return res.redirect(`http://localhost:3000/google/${req.session.passport.user.token}`);
 }
-    );
- 
-    
+);
+
+
 
 
 //password: Abhay

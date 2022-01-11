@@ -14,6 +14,8 @@ import { PrevArrow, NextArrow } from '../../Components/Delivery/CarousalArrow'
 import ReviewCard from '../../Components/restaurant/Reviews/ReviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
+
+//redux action
 import { getImage } from '../../Redux/Reducer/Image/Image.action'
 import { getReviews } from '../../Redux/Reducer/Reviews/Review.action'
 
