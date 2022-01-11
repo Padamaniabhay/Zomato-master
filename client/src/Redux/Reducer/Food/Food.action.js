@@ -11,7 +11,7 @@ export const getFoodList = (menuId) => async (dispatch) => {
         });
         return dispatch({ type: GET_FOOD_LIST, payload: Menu.data })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };
@@ -25,7 +25,7 @@ export const getFood = (foodId) => async (dispatch) => {
 
         return dispatch({ type: GET_FOOD,payload: Food.data })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };

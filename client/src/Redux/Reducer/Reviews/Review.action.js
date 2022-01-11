@@ -13,7 +13,7 @@ export const getReviews = (resId) => async (dispatch) => {
 
         return dispatch({ type: GET_REVIEW, payload: ReviewList.data })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };
@@ -22,11 +22,12 @@ export const postReviews = (reviewData) => async (dispatch) => {
         await axios({
             method: "POST",
             url: `http://localhost:4000/reviews/new`,
+            data: { reviewData },
         });
 
         return dispatch({ type: POST_REVIEW, payload: reviewData })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };

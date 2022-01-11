@@ -17,8 +17,7 @@ const ReviewReducer = (state=INITIAL_STATE,action)=>{
             return{
                 ...state,
                 reviews:[...state.reviews,action.payload],
-            }
-
+            };
             default:
                 return {...state};
     }

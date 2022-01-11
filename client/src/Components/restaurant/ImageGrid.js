@@ -38,7 +38,7 @@ const ImageGrid = (props) => {
                                 className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />  
                             <div className="absolute inset-0 bg-opacity-40 bg-black w-full h-full rounded-lg"/>
-                            <h4 className="absolute inset-y-1/2 text-white z-20 w-full h-full text-center font-semibold">View Gallery</h4>
+                            <h4 className="absolute inset-y-1/2 text-white z-2 w-full h-full text-center font-semibold">View Gallery</h4>
                         </div>
                         <div className="overflow-hidden w-full h-full relative">
                             <img src={props.images.length>=4 && props.images[4].location}
@@ -46,7 +46,7 @@ const ImageGrid = (props) => {
                                 className="w-full h-48 object-cover rounded-lg transform transition duration-700 hover:scale-110 "
                             />  
                             <div className="absolute inset-0 bg-opacity-90 bg-gray-400 w-full h-full rounded-lg"/>
-                            <div className="absolute inset-y-1/3 text-white z-20 w-full h-full text-center font-semibold flex flex-col items-center">
+                            <div className="absolute inset-y-1/3 text-white z-2 w-full h-full text-center font-semibold flex flex-col items-center">
                                 <div className="bg-black p-3 rounded-full bg-opacity-50">
                                 <AiOutlineCamera/>
                                 </div>

@@ -11,7 +11,7 @@ import ReactStars from "react-rating-stars-component";
 import MenuCollection from '../../Components/restaurant/MenuCollection'
 import MenuSimilarRestauranrCard from '../../Components/restaurant/MenuSimilarRestauranrCard'
 import { PrevArrow, NextArrow } from '../../Components/Delivery/CarousalArrow'
-import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
+import ReviewCard from '../../Components/restaurant/Reviews/ReviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
 import { getImage } from '../../Redux/Reducer/Image/Image.action'

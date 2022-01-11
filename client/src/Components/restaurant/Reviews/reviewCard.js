@@ -6,14 +6,13 @@ import { getUser } from '../../../Redux/Reducer/User/User.action'
 
 
 const ReviewCard = (props) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState("");
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUser(props.user)).then(data => 
-        // setUser(data.payload.user.user.user)
-        console.log(data)
+        dispatch(getUser(props.user)).then(data =>
+            setUser(data.payload.user.fullname)
         )
     }, [])
 
@@ -29,7 +28,7 @@ const ReviewCard = (props) => {
                             />
                         </div>
                         <div className='flex flex-col'>
-                            <h3 className='text-lg font-semibold'>{user?.fullname}</h3>
+                            <h3 className='text-lg font-semibold'>{user}</h3>
                             <small className='txt-gray-500'>5 Reviews &#8226; 3 follwers</small>
                         </div>
                     </div>

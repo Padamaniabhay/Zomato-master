@@ -12,7 +12,7 @@ export const getRestaurant = () => async (dispatch) => {
 
         return dispatch({ type: GET_RESTAURANT, payload: restaurantList.data })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };
@@ -25,7 +25,7 @@ export const getSpecificRestaurant = (_id) => async (dispatch) => {
 
         return dispatch({ type: GET_SPECIFIC_RESTAURANT, payload: restaurant.data })
     } catch (error) {
-        return dispatch({ type: "ERROR", payload: error.data })
+        return dispatch({ type: "ERROR", payload: error })
 
     }
 };

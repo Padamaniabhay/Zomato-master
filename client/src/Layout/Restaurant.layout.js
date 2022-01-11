@@ -43,7 +43,7 @@ const RestaurantLayout = (props) => {
     return (
         <>
             <RestaurantNavbar />
-            <div className="container mx-auto px-4 lg:px-32 ">
+            <div className="container mx-auto px-4 lg:px-32 pb-24">
                 <ImageGrid images={restaurant.images}
                 />
                 <RestaurantInfo                                         //here ? mark means if restaurant is available then go for name,rating....

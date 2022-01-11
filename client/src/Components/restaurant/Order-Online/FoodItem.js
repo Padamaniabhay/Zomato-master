@@ -39,7 +39,7 @@ const FoodItem = (props) => {
                             <button className='md:hidden flex items-center gap-2 text-zomato-400 bg-zomato-50 border border-zomato-400 px-2 py-1 rounded-lg'><AiOutlinePlus /> Add</button>
                         </div>
                         <ReactStars count={5} value={food?.rating || 0} />
-                        <h5>₹ {food?.price}</h5>
+                        <h5>₹{food?.price}</h5>
                         <p className='truncate'>
                             {food?.descript}
                         </p>

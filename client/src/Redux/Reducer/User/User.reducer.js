@@ -1,24 +1,23 @@
-import { GET_USER,AUTH_USER } from "./User.type";
+import { GET_USER, AUTH_USER, SELF } from "./User.type";
 
 const INITIAL_STATE = {
-    user:{},
+    user: {},
 };
 
-const UserReducer = (state=INITIAL_STATE,action)=>{
-    switch (action.type){
+const UserReducer = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
         case GET_USER:
             return {
                 ...state,
-                user:action.payload,
             };
-        case AUTH_USER:
+        case SELF:
             return {
                 ...state,
                 user:action.payload,
             };
 
-            default:
-                return {...state};
+        default:
+            return { ...state };
     }
 }
 
